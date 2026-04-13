@@ -154,12 +154,7 @@ function App() {
         }
         setSelectedResultsArray(tempArray)
     }, [resultSelectorProposal, resultSelectorSlideshow, resultSelectorFrontPage, resultSelectorCollage])
-    useEffect(() => {
-        if (document.getElementById('outputFrontPageImage') !== null) {
-            document.getElementById('outputFrontPageImage').src = frontPageImage;
-        }
-    }, [frontPageImage])
-
+   
     var outputs = {
         proposal: <></>,
         slideshow: <></>,
@@ -244,16 +239,18 @@ outlined above.<br />
         </div>
     </div>;
 
-    outputs.frontPage = 
-    <div className='output'>
-    <div className='imageAlignmentHelperOuter'>
-        <img className='logoFrontPage' alt='Premier Roofing Logo' src='logo.png'></img>
+    outputs.frontPage =
+<div className='output frontPageOutput'>
+    <div className='frontPageInner'>
+        <img className='logoFrontPage' alt='Premier Roofing Logo' src='logo.png' />
+        
         <div className='outputFrontPageContact'>
             85 Main St, Suite 3<br />
             Sidney, NY 13838<br />
             (607) 563-9099<br />
             info@roof007.com
         </div>
+
         <div className='outputFrontPageSubheadDiv'>
             <div className='outputFrontPageSubheadLeft'>
                 <h2>Proposal prepared for:</h2>
@@ -262,17 +259,24 @@ outlined above.<br />
                 {clientCity}<br />
                 {clientPhone}
             </div>
+
             <div className='outputFrontPageSubheadRight'>
                 <h2>Estimator:</h2>
                 {salesmanInfo}
             </div>
         </div>
-            <div className='imageAlignmentHelper'>
-                <img src={frontPageImage} id='outputFrontPageImage' />
-            </div>
+
+        <div className='frontPageImageFrame'>
+            {frontPageImage ? (
+                <img
+                    src={frontPageImage}
+                    className='outputFrontPageImage'
+                    alt='Front page'
+                />
+            ) : null}
         </div>
     </div>
-
+</div>
     outputs.collage = <div className='output'>
         <div className='outputCollageHeader'>
             <h1>Property Information</h1>
@@ -420,25 +424,8 @@ outlined above.<br />
 
     //output stuff
     function pdfGenerate() {
-        //set outputs to appropriate y position
-        var allOutputs = document.getElementsByClassName('output');
-        for (var i = 0; i < allOutputs.length; i++) {
-            allOutputs[i].style.top = 11*i + 'in'
-        }
-        setTimeout(() => {
-            for (var i = 0; i < allOutputs.length; i++) {
-                allOutputs[i].style.removeProperty('top');
-            }
-        }, 100)
-        //set overall document height
-        document.body.style.height = (11 * allOutputs.length) + 'in';
-        setTimeout(() => {
-            document.body.style.height = '0';
-        }, 100)
-        console.log(document.body.scrollHeight)
-        console.log((11 * allOutputs.length) * 96)
-        window.print()
-    }
+    window.print();
+}
 
     function resultSelectToggle(button) {
         if (button === 'Proposal') {
