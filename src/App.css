@@ -1,20 +1,41 @@
+@page {
+    size: Letter portrait;
+    margin: 0;
+}
+
 @media print {
-    .output {
-        background-color: white;
-        height: 100% !important;
-        width: 100% !important;
-        position: fixed;
-        /*top: 0;*/
-        left: 0;
-        margin: 0;
-        padding: 15px;
-        /*font-size: 14px;*/
-        /*line-height: 18px;*/
-        zoom: 1 !important;
-        -moz-transform: scale(1) !important;
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
     }
-    .notOutput {
-        display: none;
+
+    .notOutput,
+    #justTheWordPreview,
+    #listOfResults {
+        display: none !important;
+    }
+
+    .output {
+        position: relative !important;
+        display: block !important;
+        width: 8.5in !important;
+        height: 11in !important;
+        margin: 0 !important;
+        padding: 0.2in !important;
+        box-sizing: border-box !important;
+        background: white !important;
+        overflow: hidden !important;
+        page-break-after: always;
+        break-after: page;
+        zoom: 1 !important;
+        transform: none !important;
+        -moz-transform: none !important;
+    }
+
+    .output:last-child {
+        page-break-after: auto;
+        break-after: auto;
     }
 }
 
@@ -154,15 +175,13 @@ input[type="text"] {
 
 
 .output {
-    color:rgb(0, 0, 0);
-    margin: 0 auto;
+    color: rgb(0, 0, 0);
+    margin: 20px auto;
     background-color: rgb(255, 255, 255);
     width: 8.5in;
-    height: 11in;
-    padding: 1px;
-    zoom: 0.75;
-    -moz-transform: scale(0.75);
-    -moz-transform-origin: 412px 0;
+    min-height: 11in;
+    padding: 0.2in;
+    box-sizing: border-box;
 }
 
 .output h2 {
@@ -301,29 +320,25 @@ input[type="text"] {
     flex-grow: 1;
 }
 
-.imageAlignmentHelperOuter {
+.frontPageImageFrame {
+    margin: 0 auto;
+    margin-top: 0.2in;
+    width: 7in;
+    height: 6.2in;
     display: flex;
-    flex-direction: column;
-    height: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
-.imageAlignmentHelper {
-    position: relative;
-    flex-grow: 1;
-}
-
-#outputFrontPageImage {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    max-width: 7in;
-    max-height: 6in;
-    border-style: solid;
-    border-width: 6px;
-    border-color: var(--primary-color);
+.outputFrontPageImage {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border: 6px solid var(--primary-color);
+    box-sizing: border-box;
 }
 
 .outputCollageHeader {
